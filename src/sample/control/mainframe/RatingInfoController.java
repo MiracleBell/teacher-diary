@@ -1,14 +1,13 @@
-package sample.control;
+package sample.control.mainframe;
 
 import control.FloatField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import sample.Main;
 import sample.model.Rating;
+import sample.util.PrimaryFields;
 
 public class RatingInfoController {
     @FXML
@@ -27,9 +26,17 @@ public class RatingInfoController {
 
     @FXML
     public void pressAccept() {
-        Main.getCurrentTask().changeProgress(Float.parseFloat(progressField.getText()));
-//        Main.getCurrentStudent().getRatings().remove(Main.getCurrentRating());
-//        Main.getCurrentStudent().getRatings().add(new Rating(Float.parseFloat(progressField.getText())));
+//        PrimarySingleFields.getCurrentRating().change(Float.parseFloat(progressField.getText()));
+        Rating rating = new Rating(
+                PrimaryFields.getCurrentRating().getTask(),
+                Float.parseFloat(progressField.getText())
+        );
+        PrimaryFields.getCurrentStudent().getRatings().remove(
+                PrimaryFields.getCurrentRating()
+        );
+        PrimaryFields.getCurrentStudent().getRatings().add(rating);
+        PrimaryFields.getCurrentStudent().updateTotalProgress();
+
         pressCancel();
     }
 

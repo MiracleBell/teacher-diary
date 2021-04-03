@@ -43,7 +43,12 @@ public class Team {
     public void removeTask(Task task) {
         tasks.remove(task);
         for (Student item : students) {
-            item.getTasks().remove(task);
+            for (Rating elem : item.getRatings()) {
+                if (elem.getTask().equals(task)) {
+                    item.getRatings().remove(elem);
+                    break;
+                }
+            }
         }
     }
 

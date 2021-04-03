@@ -8,14 +8,21 @@ import javafx.collections.ObservableList;
 public class Student {
     private StringProperty fullName;
     private FloatProperty totalProgress;
-    private ObservableList<Task> tasks;
     private ObservableList<Rating> ratings;
 
 
     public Student(String fullName, float totalProgress) {
         this.fullName = new SimpleStringProperty(fullName);
         this.totalProgress = new SimpleFloatProperty(totalProgress);
-        this.tasks = FXCollections.observableArrayList();
+        this.ratings = FXCollections.observableArrayList();
+    }
+
+    public void updateTotalProgress() {
+        float result = 0;
+        for (Rating item : ratings) {
+            result += item.getRating() * item.getTask().getTaskCoefficient() / 100;
+        }
+        totalProgress = new SimpleFloatProperty(result);
     }
 
 
@@ -39,7 +46,7 @@ public class Student {
         return totalProgress;
     }
 
-    public ObservableList<Task> getTasks() {
-        return tasks;
+    public ObservableList<Rating> getRatings() {
+        return ratings;
     }
 }

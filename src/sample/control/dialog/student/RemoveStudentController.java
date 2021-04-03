@@ -4,8 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import sample.Main;
 import sample.model.Student;
+import sample.util.PrimaryFields;
 
 import java.io.IOException;
 
@@ -19,9 +19,9 @@ public class RemoveStudentController {
 
     @FXML
     public void pressAccept() throws IOException {
-        for (Student item : Main.getCurrentTeam().getStudents()) {
+        for (Student item : PrimaryFields.getCurrentTeam().getStudents()) {
             if (item.getFullName().equals(fullNameField)) {
-                Main.getCurrentTeam().getStudents().remove(item);
+                PrimaryFields.getCurrentTeam().getStudents().remove(item);
                 break;
             }
         }

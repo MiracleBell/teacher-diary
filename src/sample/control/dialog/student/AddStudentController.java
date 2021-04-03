@@ -4,8 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import sample.Main;
+import sample.model.Rating;
 import sample.model.Student;
+import sample.model.Task;
+import sample.util.PrimaryFields;
 
 public class AddStudentController {
     @FXML
@@ -20,10 +22,12 @@ public class AddStudentController {
     public void pressAccept() {
         //создаем нового студента и даем ему все задачи, которые на данный момент выданы группе
         Student student = new Student(fullName.getText());
-        student.getTasks().addAll(Main.getCurrentTeam().getTasks());
+        for (Task item : PrimaryFields.getCurrentTeam().getTasks()) {
+            student.getRatings().add(new Rating(item));
+        }
+        //добавляем студента в группу
+        PrimaryFields.getCurrentTeam().addStudent(student);
 
-//        Main.getStudents().add(student);
-        Main.getCurrentTeam().addStudent(student);
         pressCancel();
     }
 

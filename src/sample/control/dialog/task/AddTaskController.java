@@ -5,9 +5,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import sample.Main;
+import sample.model.Rating;
 import sample.model.Student;
 import sample.model.Task;
+import sample.util.PrimaryFields;
 
 import java.io.IOException;
 
@@ -31,14 +32,15 @@ public class AddTaskController {
                 Float.parseFloat(taskCoefficient.getText())
         );
 
-        if (Main.getCurrentStudent() == null) {
+        if (PrimaryFields.getCurrentStudent() == null) {
             //добавляется задача на всю группу
-            Main.getCurrentTeam().getTasks().add(task);
-            for (Student item : Main.getCurrentTeam().getStudents()) {
-                item.getTasks().add(task);
+            PrimaryFields.getCurrentTeam().getTasks().add(task);
+            for (Student item : PrimaryFields.getCurrentTeam().getStudents()) {
+                item.getRatings().add(new Rating(task));
             }
         } else {
-            Main.getCurrentStudent().getTasks().add(task);
+            //добавляется задача только конкретному студенту
+            PrimaryFields.getCurrentStudent().getRatings().add(new Rating(task));
         }
 
         pressCancel();

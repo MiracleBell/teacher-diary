@@ -1,4 +1,4 @@
-package sample.control;
+package sample.control.mainframe;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,9 +9,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import sample.Main;
 import sample.model.Student;
 import sample.model.Team;
+import sample.util.PrimaryFields;
 
 import java.io.IOException;
 
@@ -28,6 +28,8 @@ public class TeamInfoController {
     private Button addTaskButton;
     @FXML
     private Button removeStudentButton;
+    @FXML
+    private Button removeTaskButton;
     @FXML
     private Button backToMainMenu;
 
@@ -56,14 +58,14 @@ public class TeamInfoController {
         if (selectedStudent == null) {
             return;
         }
-        Main.setCurrentStudent(selectedStudent);
+        PrimaryFields.setCurrentStudent(selectedStudent);
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../view/studentInfo.fxml"));
+        loader.setLocation(getClass().getResource("../view/mainframe/studentInfo.fxml"));
         Parent root = loader.load();
 
-        Main.getMainStage().setTitle("Студент: " + selectedStudent.getFullName());
-        Main.getMainStage().setScene(new Scene(root));
+        PrimaryFields.getMainStage().setTitle("Студент: " + selectedStudent.getFullName());
+        PrimaryFields.getMainStage().setScene(new Scene(root));
         StudentInfoController controller = loader.getController();
         controller.init(selectedStudent);
     }
@@ -76,19 +78,19 @@ public class TeamInfoController {
         stage.setScene(new Scene(root));
         stage.setTitle("Добавление задачи");
         stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(Main.getMainStage());
+        stage.initOwner(PrimaryFields.getMainStage());
         stage.showAndWait();
     }
 
     @FXML
     private void removeTask() throws IOException {
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("view/dialog/task/dialogRemoveTask.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../view/dialog/task/dialogRemoveTask.fxml"));
 
         stage.setScene(new Scene(root));
         stage.setTitle("Удаление задачи");
         stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(Main.getMainStage());
+        stage.initOwner(PrimaryFields.getMainStage());
         stage.showAndWait();
     }
 
@@ -100,7 +102,7 @@ public class TeamInfoController {
         stage.setScene(new Scene(root));
         stage.setTitle("Добавление студента");
         stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(Main.getMainStage());
+        stage.initOwner(PrimaryFields.getMainStage());
         stage.showAndWait();
     }
 
@@ -108,7 +110,7 @@ public class TeamInfoController {
     public void removeStudent() throws IOException {
         Stage stage = new Stage();
         Parent root;
-        if (Main.getCurrentTeam().getStudents().isEmpty()) {
+        if (PrimaryFields.getCurrentTeam().getStudents().isEmpty()) {
             root = FXMLLoader.load(getClass().getResource("../view/dialog/error/emptyStudentList.fxml"));
         } else {
             root = FXMLLoader.load(getClass().getResource("../view/dialog/student/dialogRemoveStudent.fxml"));
@@ -117,20 +119,22 @@ public class TeamInfoController {
         stage.setScene(new Scene(root));
         stage.setTitle("Удаление студента");
         stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(Main.getMainStage());
+        stage.initOwner(PrimaryFields.getMainStage());
         stage.showAndWait();
     }
 
     @FXML
     public void showTeamList() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../view/teamList.fxml"));
+        loader.setLocation(getClass().getResource("../view/mainframe/teamList.fxml"));
         Parent root = loader.load();
 
-        Main.getMainStage().setTitle("Журнал преподавателя 1.0: Список групп");
-        Main.getMainStage().setScene(new Scene(root));
+        PrimaryFields.getMainStage().setTitle("Журнал преподавателя 1.0: Список групп");
+        PrimaryFields.getMainStage().setScene(new Scene(root));
         Controller controller = loader.getController();
-        controller.initMainTable(Main.getTeams());
-        Main.setCurrentTeam(null);
+        controller.initMainTable(PrimaryFields.getTeams());
+
+        //перестаем отслеживать группу
+        PrimaryFields.setCurrentTeam(null);
     }
 }

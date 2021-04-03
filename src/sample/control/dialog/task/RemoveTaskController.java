@@ -4,8 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import sample.Main;
+import sample.model.Rating;
 import sample.model.Task;
+import sample.util.PrimaryFields;
 
 import java.io.IOException;
 
@@ -20,17 +21,26 @@ public class RemoveTaskController {
 
     @FXML
     public void pressAccept() throws IOException {
-        if (Main.getCurrentStudent() == null) {
-            for (Task item : Main.getCurrentTeam().getTasks()) {
-                if (item.getTaskName().equals(taskNameField)) {
-                    Main.getCurrentTeam().removeTask(item);
+//        Task task = new Task(taskNameField.getText());
+        if (PrimaryFields.getCurrentStudent() == null) {
+            //удаяем у всей группы студентов
+            for (Task item : PrimaryFields.getCurrentTeam().getTasks()) {
+                if (item.getTaskName().equals(taskNameField.getText())) {
+                    PrimaryFields.getCurrentTeam().removeTask(item);
                     break;
                 }
             }
+
+            /*for (Task item : PrimarySingleFields.getCurrentTeam().getTasks()) {
+                if (item.getTaskName().equals(task)) {
+                    PrimarySingleFields.getCurrentTeam().removeTask(item);
+                    break;
+                }
+            }*/
         } else {
-            for (Task item : Main.getCurrentStudent().getTasks()) {
-                if (item.getTaskName().equals(taskNameField)) {
-                    Main.getCurrentStudent().getTasks().remove(item);
+            for (Rating item : PrimaryFields.getCurrentStudent().getRatings()) {
+                if (item.getTask().getTaskName().equals(taskNameField.getText())) {
+                    PrimaryFields.getCurrentStudent().getRatings().remove(item);
                     break;
                 }
             }

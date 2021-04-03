@@ -5,18 +5,19 @@ import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.util.Objects;
+
 public class Task {
     private StringProperty taskName;
     private StringProperty taskDescription;
     private FloatProperty taskCoefficient;
-    private FloatProperty progress;
 
 
     public Task(String taskName, String taskDescription, Float taskCoefficient) {
         if (taskName == null || taskName.equals("")) {
             throw new NullPointerException("Поле 'taskName' не должно быть пустым");
         }
-        if (taskDescription == null || taskDescription.equals("")) {
+        if (taskDescription == null) {
             throw new NullPointerException("Поле 'taskContent' не должно быть пустым");
         }
         if (taskCoefficient == null) {
@@ -29,15 +30,14 @@ public class Task {
         this.taskName = new SimpleStringProperty(taskName);
         this.taskDescription = new SimpleStringProperty(taskDescription);
         this.taskCoefficient = new SimpleFloatProperty(taskCoefficient);
-        this.progress = new SimpleFloatProperty(0);
     }
 
     public Task(String taskName, String taskDescription, float taskCoefficient) {
         this(taskName, taskDescription, new Float(taskCoefficient));
     }
 
-    public void changeProgress(final float rating) {
-        this.progress.set(rating);
+    public Task(String taskName) {
+        this(taskName, "", 0);
     }
 
     public String getTaskName() {
@@ -64,11 +64,16 @@ public class Task {
         return taskCoefficient;
     }
 
-    public float getProgress() {
-        return progress.get();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return taskName.equals(task.taskName);
     }
 
-    public FloatProperty progressProperty() {
-        return progress;
+    @Override
+    public int hashCode() {
+        return Objects.hash(taskName);
     }
 }

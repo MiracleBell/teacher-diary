@@ -4,8 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import sample.Main;
 import sample.model.Team;
+import sample.util.PrimaryFields;
 
 public class RemoveTeamController {
     @FXML
@@ -17,9 +17,9 @@ public class RemoveTeamController {
 
     @FXML
     public void pressAccept() {
-        for (Team item : Main.getTeams()) {
+        for (Team item : PrimaryFields.getTeams()) {
             if (item.getTeamName().equals(teamName.getText())) {
-                Main.getTeams().remove(item);
+                PrimaryFields.getTeams().remove(item);
                 break;
             }
         }
