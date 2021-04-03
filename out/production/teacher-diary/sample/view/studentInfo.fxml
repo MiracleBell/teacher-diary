@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.control.StudentInfoController">
+    <bottom>
+        <HBox alignment="TOP_CENTER" prefHeight="39.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <children>
+                <ButtonBar prefHeight="39.0" prefWidth="438.0">
+                    <buttons>
+                        <Button fx:id="addStudentButton" mnemonicParsing="false" prefHeight="25.0" text="Ничего" />
+                        <Button fx:id="addTaskButton" mnemonicParsing="false" onAction="#addTask" text="Добавить задачу" />
+                        <Button fx:id="backToMainMenu" mnemonicParsing="false" onAction="#goBackToTeamInfo" text="Вернуться к группе" />
+                    </buttons>
+                </ButtonBar>
+            </children>
+        </HBox>
+    </bottom>
+    <center>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <children>
+                <TableView fx:id="ratingTable" layoutY="-1.0" onMouseClicked="#editRating" prefHeight="365.0" prefWidth="600.0">
+                </TableView>
+            </children>
+        </AnchorPane>
+    </center>
+</BorderPane>
