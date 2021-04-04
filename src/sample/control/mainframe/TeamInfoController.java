@@ -50,6 +50,7 @@ public class TeamInfoController {
     }
 
 
+    //редактируем данные конкретного студента
     @FXML
     public void editStudentInfo() throws IOException {
         Student selectedStudent = teamTable.getSelectionModel().getSelectedItem();
@@ -58,10 +59,11 @@ public class TeamInfoController {
         if (selectedStudent == null) {
             return;
         }
+        //начинаем отслеживать выбранного студента
         PrimaryFields.setCurrentStudent(selectedStudent);
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../view/mainframe/studentInfo.fxml"));
+        loader.setLocation(getClass().getResource("../../view/mainframe/studentInfo.fxml"));
         Parent root = loader.load();
 
         PrimaryFields.getMainStage().setTitle("Студент: " + selectedStudent.getFullName());
@@ -73,7 +75,7 @@ public class TeamInfoController {
     @FXML
     public void addTask() throws IOException {
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("../view/dialog/task/dialogAddTask.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../../view/dialog/task/dialogAddTask.fxml"));
 
         stage.setScene(new Scene(root));
         stage.setTitle("Добавление задачи");
@@ -85,7 +87,7 @@ public class TeamInfoController {
     @FXML
     private void removeTask() throws IOException {
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("../view/dialog/task/dialogRemoveTask.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../../view/dialog/task/dialogRemoveTask.fxml"));
 
         stage.setScene(new Scene(root));
         stage.setTitle("Удаление задачи");
@@ -97,7 +99,7 @@ public class TeamInfoController {
     @FXML
     public void addStudent() throws IOException {
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("../view/dialog/student/dialogAddStudent.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../../view/dialog/student/dialogAddStudent.fxml"));
 
         stage.setScene(new Scene(root));
         stage.setTitle("Добавление студента");
@@ -110,10 +112,12 @@ public class TeamInfoController {
     public void removeStudent() throws IOException {
         Stage stage = new Stage();
         Parent root;
+        //проверяем, есть ли вообще группы
         if (PrimaryFields.getCurrentTeam().getStudents().isEmpty()) {
-            root = FXMLLoader.load(getClass().getResource("../view/dialog/error/emptyStudentList.fxml"));
+            //если нет - выводим окно с ошибкой
+            root = FXMLLoader.load(getClass().getResource("../../view/dialog/error/emptyStudentList.fxml"));
         } else {
-            root = FXMLLoader.load(getClass().getResource("../view/dialog/student/dialogRemoveStudent.fxml"));
+            root = FXMLLoader.load(getClass().getResource("../../view/dialog/student/dialogRemoveStudent.fxml"));
         }
 
         stage.setScene(new Scene(root));
@@ -124,9 +128,10 @@ public class TeamInfoController {
     }
 
     @FXML
-    public void showTeamList() throws IOException {
+    public void goBackToTeamList() throws IOException {
+        //Возвращаемся к предыдущему окну (кнопка "к списку групп")
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../view/mainframe/teamList.fxml"));
+        loader.setLocation(getClass().getResource("../../view/mainframe/teamList.fxml"));
         Parent root = loader.load();
 
         PrimaryFields.getMainStage().setTitle("Журнал преподавателя 1.0: Список групп");

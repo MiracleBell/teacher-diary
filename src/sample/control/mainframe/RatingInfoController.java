@@ -7,7 +7,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import sample.model.Rating;
+import sample.util.DialogService;
 import sample.util.PrimaryFields;
+
+import java.io.IOException;
 
 public class RatingInfoController {
     @FXML
@@ -25,15 +28,24 @@ public class RatingInfoController {
 
 
     @FXML
-    public void pressAccept() {
-//        PrimarySingleFields.getCurrentRating().change(Float.parseFloat(progressField.getText()));
+    public void pressAccept() throws IOException {
+        float value = Float.parseFloat(progressField.getText());
+        //Проверка на корректность данных
+        if (value < 0 || value > 100) {
+            new DialogService().callWindow("../view/dialog/error/invalidRatingData.fxml", "Ошибка!");
+            return;
+        }
+
+        //чтобы изменения отобразились сразу, пересоздается объект
         Rating rating = new Rating(
                 PrimaryFields.getCurrentRating().getTask(),
                 Float.parseFloat(progressField.getText())
         );
+//        старый объект удаляется
         PrimaryFields.getCurrentStudent().getRatings().remove(
                 PrimaryFields.getCurrentRating()
         );
+        //заменяется новым
         PrimaryFields.getCurrentStudent().getRatings().add(rating);
         PrimaryFields.getCurrentStudent().updateTotalProgress();
 

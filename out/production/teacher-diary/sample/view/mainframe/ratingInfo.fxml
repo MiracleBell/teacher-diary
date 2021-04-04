@@ -7,7 +7,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0"
             prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="sample.control.RatingInfoController">
+            fx:controller="sample.control.mainframe.RatingInfoController">
     <top>
         <HBox prefHeight="52.0" prefWidth="380.0" BorderPane.alignment="CENTER">
             <children>

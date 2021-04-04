@@ -65,7 +65,7 @@ public class StudentInfoController {
     @FXML
     public void addTask() throws IOException {
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("../view/dialog/task/dialogAddTask.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../../view/dialog/task/dialogAddTask.fxml"));
 
         stage.setScene(new Scene(root));
         stage.setTitle("Добавление задачи");
@@ -77,22 +77,10 @@ public class StudentInfoController {
     @FXML
     public void removeRating() throws IOException {
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("../view/dialog/task/dialogRemoveTask.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../../view/dialog/task/dialogRemoveTask.fxml"));
 
         stage.setScene(new Scene(root));
         stage.setTitle("Удаление задачи");
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(PrimaryFields.getMainStage());
-        stage.showAndWait();
-    }
-
-    @FXML
-    public void addRating() throws IOException {
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("../view/dialogAddRating.fxml"));
-
-        stage.setScene(new Scene(root));
-        stage.setTitle("Добавление оценки");
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(PrimaryFields.getMainStage());
         stage.showAndWait();
@@ -110,7 +98,7 @@ public class StudentInfoController {
         PrimaryFields.setCurrentRating(selectedTask);
 
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("../view/mainframe/ratingInfo.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../../view/mainframe/ratingInfo.fxml"));
 
         stage.setScene(new Scene(root));
         stage.setTitle("Добавление задачи");
@@ -122,8 +110,9 @@ public class StudentInfoController {
 
     @FXML
     public void goBackToTeamInfo() throws IOException {
+        //Возвращаемся к предыдущему окну (кнопка "к списку групп")
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../view/mainframe/teamInfo.fxml"));
+        loader.setLocation(getClass().getResource("../../view/mainframe/teamInfo.fxml"));
         Parent root = loader.load();
 
         PrimaryFields.getMainStage().setTitle("Группа: " + PrimaryFields.getCurrentTeam().getTeamName());

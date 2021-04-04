@@ -42,7 +42,7 @@
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
                   </Button>
-                        <Button fx:id="backToMainMenu" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#showTeamList" text="К списку групп">
+                        <Button fx:id="backToMainMenu" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#goBackToTeamList" text="К списку групп">
                      <HBox.margin>
                         <Insets left="200.0" right="10.0" />
                      </HBox.margin>

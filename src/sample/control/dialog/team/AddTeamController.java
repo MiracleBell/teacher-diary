@@ -19,7 +19,6 @@ public class AddTeamController {
     public void pressAccept() {
         Team team = new Team(teamName.getText());
         PrimaryFields.getTeams().add(team);
-//        Main.getTeamNameToTeam().put(team.getTeamName(), team);
         pressCancel();
     }
 

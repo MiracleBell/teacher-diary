@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane prefHeight="230.0" prefWidth="382.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.control.dialog.error.ErrorMessageWinController">
+    <children>
+        <VBox alignment="CENTER" layoutY="7.0" prefHeight="230.0" prefWidth="382.0">
+            <children>
+                <Label text="Введено некорректное значение" textAlignment="CENTER">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <Label text="Допустимые значения от 0 до 100" textAlignment="CENTER">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <Button fx:id="acceptButton" mnemonicParsing="false" onAction="#pressAccept" text="ОК" textAlignment="CENTER" />
+            </children>
+        </VBox>
+    </children>
+</Pane>

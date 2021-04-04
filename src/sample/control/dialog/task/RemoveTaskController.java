@@ -21,7 +21,6 @@ public class RemoveTaskController {
 
     @FXML
     public void pressAccept() throws IOException {
-//        Task task = new Task(taskNameField.getText());
         if (PrimaryFields.getCurrentStudent() == null) {
             //удаяем у всей группы студентов
             for (Task item : PrimaryFields.getCurrentTeam().getTasks()) {
@@ -30,13 +29,6 @@ public class RemoveTaskController {
                     break;
                 }
             }
-
-            /*for (Task item : PrimarySingleFields.getCurrentTeam().getTasks()) {
-                if (item.getTaskName().equals(task)) {
-                    PrimarySingleFields.getCurrentTeam().removeTask(item);
-                    break;
-                }
-            }*/
         } else {
             for (Rating item : PrimaryFields.getCurrentStudent().getRatings()) {
                 if (item.getTask().getTaskName().equals(taskNameField.getText())) {

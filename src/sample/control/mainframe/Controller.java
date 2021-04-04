@@ -10,6 +10,7 @@ import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sample.model.Team;
+import sample.util.DialogService;
 import sample.util.PrimaryFields;
 
 import java.io.IOException;
@@ -35,7 +36,7 @@ public class Controller {
     @FXML
     public void addTeam() throws IOException {
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("../view/dialog/team/dialogAddTeam.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../../view/dialog/team/dialogAddTeam.fxml"));
 
         stage.setScene(new Scene(root));
         stage.setTitle("Добавление группы");
@@ -46,20 +47,19 @@ public class Controller {
 
     @FXML
     public void removeTeam() throws IOException {
-        Stage stage = new Stage();
+//        Stage stage = new Stage();
         if (PrimaryFields.getTeams().isEmpty()) {
-            Parent root = FXMLLoader.load(getClass().getResource("../view/dialog/error/emptyTeamList.fxml"));
-            stage.setScene(new Scene(root));
-            stage.setTitle("Ошибка!");
+            new DialogService().callWindow("../view/dialog/error/emptyTeamList.fxml", "Ошибка!");
         } else {
-            Parent root = FXMLLoader.load(getClass().getResource("../view/dialog/team/dialogRemoveTeam.fxml"));
+            new DialogService().callWindow("../view/dialog/team/dialogRemoveTeam.fxml","Удаление группы");
+            /*Parent root = FXMLLoader.load(getClass().getResource("../../view/dialog/team/dialogRemoveTeam.fxml"));
             stage.setScene(new Scene(root));
-            stage.setTitle("Удаление группы");
+            stage.setTitle("Удаление группы");*/
         }
 
-        stage.initModality(Modality.WINDOW_MODAL);
+        /*stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(PrimaryFields.getMainStage());
-        stage.showAndWait();
+        stage.showAndWait();*/
     }
 
 
@@ -74,7 +74,7 @@ public class Controller {
         PrimaryFields.setCurrentTeam(selectedItem);
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../view/mainframe/teamInfo.fxml"));
+        loader.setLocation(getClass().getResource("../../view/mainframe/teamInfo.fxml"));
         Parent root = loader.load();
 
         PrimaryFields.getMainStage().setTitle("Группа: " + selectedItem.getTeamName());
