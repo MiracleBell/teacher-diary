@@ -11,6 +11,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sample.model.Rating;
 import sample.model.Student;
+import sample.util.DialogService;
 import sample.util.PrimaryFields;
 
 import java.io.IOException;
@@ -32,10 +33,12 @@ public class StudentInfoController {
     private Button addTaskButton;
     @FXML
     private Button addRatingButton;
+    private DialogService dialogService;
 
 
     @FXML
     public void init(Student student) {
+        dialogService = new DialogService();
         ratingTable.setItems(student.getRatings());
 
         taskNameColumn = new TableColumn<>();
@@ -64,26 +67,12 @@ public class StudentInfoController {
 
     @FXML
     public void addTask() throws IOException {
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("../../view/dialog/task/dialogAddTask.fxml"));
-
-        stage.setScene(new Scene(root));
-        stage.setTitle("Добавление задачи");
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(PrimaryFields.getMainStage());
-        stage.showAndWait();
+        dialogService.callWindow("../view/dialog/task/dialogAddTask.fxml", "Добавление задачи");
     }
 
     @FXML
     public void removeRating() throws IOException {
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("../../view/dialog/task/dialogRemoveTask.fxml"));
-
-        stage.setScene(new Scene(root));
-        stage.setTitle("Удаление задачи");
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(PrimaryFields.getMainStage());
-        stage.showAndWait();
+        dialogService.callWindow("../view/dialog/task/dialogRemoveTask.fxml", "Удаление задачи");
     }
 
 
@@ -95,16 +84,10 @@ public class StudentInfoController {
         if (selectedTask == null) {
             return;
         }
+
+        //Отслеживаем выбранное задание
         PrimaryFields.setCurrentRating(selectedTask);
-
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("../../view/mainframe/ratingInfo.fxml"));
-
-        stage.setScene(new Scene(root));
-        stage.setTitle("Добавление задачи");
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(PrimaryFields.getMainStage());
-        stage.showAndWait();
+        dialogService.callWindow("../view/mainframe/ratingInfo.fxml", "Добавление задачи");
     }
 
 

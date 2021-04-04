@@ -9,6 +9,7 @@ import sample.model.Task;
 import sample.model.Team;
 
 public class PrimaryFields {
+//    Основные поля для отслеживания состояния программы
     private static Stage mainStage;
     private static Team currentTeam;
     private static Student currentStudent;

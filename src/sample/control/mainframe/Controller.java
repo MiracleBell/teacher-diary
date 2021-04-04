@@ -7,8 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import sample.model.Team;
 import sample.util.DialogService;
 import sample.util.PrimaryFields;
@@ -20,10 +18,12 @@ public class Controller {
     private TableView<Team> tableView;
     @FXML
     private TableColumn<Team, String> teamNameColumn;
+    private DialogService dialogService;
 
 
     @FXML
     public void initMainTable(ObservableList<Team> teamList) {
+        dialogService = new DialogService();
         tableView.setItems(teamList);
         teamNameColumn = new TableColumn<>();
 
@@ -35,31 +35,16 @@ public class Controller {
 
     @FXML
     public void addTeam() throws IOException {
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("../../view/dialog/team/dialogAddTeam.fxml"));
-
-        stage.setScene(new Scene(root));
-        stage.setTitle("Добавление группы");
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(PrimaryFields.getMainStage());
-        stage.showAndWait();
+        dialogService.callWindow("../view/dialog/team/dialogAddTeam.fxml", "Добавление группы");
     }
 
     @FXML
     public void removeTeam() throws IOException {
-//        Stage stage = new Stage();
         if (PrimaryFields.getTeams().isEmpty()) {
-            new DialogService().callWindow("../view/dialog/error/emptyTeamList.fxml", "Ошибка!");
+            dialogService.callWindow("../view/dialog/error/emptyTeamList.fxml", "Ошибка!");
         } else {
-            new DialogService().callWindow("../view/dialog/team/dialogRemoveTeam.fxml","Удаление группы");
-            /*Parent root = FXMLLoader.load(getClass().getResource("../../view/dialog/team/dialogRemoveTeam.fxml"));
-            stage.setScene(new Scene(root));
-            stage.setTitle("Удаление группы");*/
+            dialogService.callWindow("../view/dialog/team/dialogRemoveTeam.fxml", "Удаление группы");
         }
-
-        /*stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(PrimaryFields.getMainStage());
-        stage.showAndWait();*/
     }
 
 

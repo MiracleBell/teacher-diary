@@ -30,6 +30,7 @@ public class RemoveTaskController {
                 }
             }
         } else {
+            //удаляем у конкретного студента
             for (Rating item : PrimaryFields.getCurrentStudent().getRatings()) {
                 if (item.getTask().getTaskName().equals(taskNameField.getText())) {
                     PrimaryFields.getCurrentStudent().getRatings().remove(item);

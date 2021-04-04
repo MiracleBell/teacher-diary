@@ -7,10 +7,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import sample.model.Student;
 import sample.model.Team;
+import sample.util.DialogService;
 import sample.util.PrimaryFields;
 
 import java.io.IOException;
@@ -32,20 +31,24 @@ public class TeamInfoController {
     private Button removeTaskButton;
     @FXML
     private Button backToMainMenu;
+    private DialogService dialogService;
 
 
     @FXML
     public void init(Team team) {
+        dialogService = new DialogService();
         teamTable.setItems(team.getStudents());
 
         studentNameColumn = new TableColumn<>();
         studentNameColumn.setText("ФИО студента");
         teamTable.getColumns().add(studentNameColumn);
+        studentNameColumn.setMinWidth(200);
         studentNameColumn.setCellValueFactory(cell -> cell.getValue().fullNameProperty());
 
         totalResultColumn = new TableColumn<>();
         totalResultColumn.setText("Общий прогресс");
         teamTable.getColumns().add(totalResultColumn);
+        totalResultColumn.setMinWidth(120);
         totalResultColumn.setCellValueFactory(cell -> cell.getValue().totalProgressProperty());
     }
 
@@ -74,57 +77,32 @@ public class TeamInfoController {
 
     @FXML
     public void addTask() throws IOException {
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("../../view/dialog/task/dialogAddTask.fxml"));
-
-        stage.setScene(new Scene(root));
-        stage.setTitle("Добавление задачи");
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(PrimaryFields.getMainStage());
-        stage.showAndWait();
+        dialogService.callWindow("../view/dialog/task/dialogAddTask.fxml", "Добавление задачи");
     }
 
     @FXML
     private void removeTask() throws IOException {
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("../../view/dialog/task/dialogRemoveTask.fxml"));
-
-        stage.setScene(new Scene(root));
-        stage.setTitle("Удаление задачи");
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(PrimaryFields.getMainStage());
-        stage.showAndWait();
+        if (PrimaryFields.getCurrentTeam().getTasks().isEmpty()) {
+            dialogService.callWindow("../view/dialog/error/emptyTaskList.fxml", "Ошибка!");
+        } else {
+            dialogService.callWindow("../view/dialog/task/dialogRemoveTask.fxml", "Удаление задачи");
+        }
     }
 
     @FXML
     public void addStudent() throws IOException {
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("../../view/dialog/student/dialogAddStudent.fxml"));
-
-        stage.setScene(new Scene(root));
-        stage.setTitle("Добавление студента");
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(PrimaryFields.getMainStage());
-        stage.showAndWait();
+        dialogService.callWindow("../view/dialog/student/dialogAddStudent.fxml", "Добавление студента");
     }
 
     @FXML
     public void removeStudent() throws IOException {
-        Stage stage = new Stage();
-        Parent root;
         //проверяем, есть ли вообще группы
         if (PrimaryFields.getCurrentTeam().getStudents().isEmpty()) {
             //если нет - выводим окно с ошибкой
-            root = FXMLLoader.load(getClass().getResource("../../view/dialog/error/emptyStudentList.fxml"));
+            dialogService.callWindow("../view/dialog/error/emptyStudentList.fxml", "Ошибка!");
         } else {
-            root = FXMLLoader.load(getClass().getResource("../../view/dialog/student/dialogRemoveStudent.fxml"));
+            dialogService.callWindow("../view/dialog/student/dialogRemoveStudent.fxml", "Удаление студента");
         }
-
-        stage.setScene(new Scene(root));
-        stage.setTitle("Удаление студента");
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(PrimaryFields.getMainStage());
-        stage.showAndWait();
     }
 
     @FXML

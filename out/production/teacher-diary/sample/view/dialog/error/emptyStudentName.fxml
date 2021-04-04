@@ -4,22 +4,23 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane prefHeight="230.0" prefWidth="382.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.control.dialog.error.ErrorMessageWinController">
-    <children>
-        <VBox alignment="CENTER" layoutY="7.0" prefHeight="230.0" prefWidth="382.0">
+<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.control.dialog.error.ErrorMessageWinController">
+    <header>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0">
             <children>
-                <Label text="Имя студента пустое или состоит из пробелов" textAlignment="CENTER">
+                <Label alignment="CENTER" layoutX="28.0" layoutY="109.0" text="Ошибка! Задано пустое или состоящее из пробелов имя студента" textAlignment="CENTER">
                     <font>
-                        <Font size="16.0" />
+                        <Font size="14.0" />
                     </font>
                 </Label>
-                <Label text="Введите имя студента заново" textAlignment="CENTER">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                </Label>
-                  <Button fx:id="acceptButton" mnemonicParsing="false" onAction="#pressAccept" text="ОК" textAlignment="CENTER" />
             </children>
-        </VBox>
-    </children>
-</Pane>
+        </AnchorPane>
+    </header>
+    <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0">
+            <children>
+                <Button fx:id="acceptButton" alignment="CENTER" layoutX="224.0" layoutY="12.0" mnemonicParsing="false" onAction="#pressAccept" text="ОК" textAlignment="CENTER" />
+            </children>
+        </AnchorPane>
+    </content>
+</DialogPane>

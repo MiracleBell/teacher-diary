@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import sample.model.Rating;
 import sample.model.Student;
 import sample.model.Task;
+import sample.util.DialogService;
 import sample.util.PrimaryFields;
 
 import java.io.IOException;
@@ -27,14 +28,7 @@ public class AddStudentController {
     @FXML
     public void pressAccept() throws IOException {
         if (fullName.getText().trim().isEmpty()) {
-            Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("../../../view/dialog/error/emptyStudentName.fxml"));
-
-            stage.setScene(new Scene(root));
-            stage.setTitle("Ошибка!");
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(PrimaryFields.getMainStage());
-            stage.showAndWait();
+            new DialogService().callWindow("../view/dialog/error/emptyStudentName.fxml", "Ошибка!");
         } else {
 
             //создаем нового студента и даем ему все задачи, которые на данный момент выданы группе
